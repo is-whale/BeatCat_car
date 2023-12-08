@@ -7,14 +7,16 @@
         },
         "includePath": [
           "/opt/ros/melodic/include/**",
-          "/home/autoware/shared_dir/beatcat/src/BeatCat_car/best_planner/waypoint_maker/include/**:",
+          "/home/autoware/shared_dir/beatcat/src/BeatCat_car/best_planner/waypoint_maker/include/**",
+          "/home/autoware/shared_dir/beatcat/src/BeatCat_car/lib/amathutils_lib/include/amathutils_lib/**",
           "/usr/include/**"
         ],
         "name": "ROS",
         "intelliSenseMode": "gcc-x64",
         "compilerPath": "/usr/bin/gcc",
         "cStandard": "gnu11",
-        "cppStandard": "c++14"
+        "cppStandard": "c++17",
+        "configurationProvider": "ms-vscode.cmake-tools"
       }
     ],
     "version": 4

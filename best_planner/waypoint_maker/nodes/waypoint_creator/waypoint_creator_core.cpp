@@ -42,16 +42,16 @@ WaypointCreator::WaypointCreator() : nh_(""), pnh_("~"), tf2_listener_(tf2_buffe
   interpolated_pose_v_.clear();
 }
 
-void WaypointCreator::inputPointCallback(const geometry_msgs::PointStamped& in_point)
+void WaypointCreator::inputPointCallback(const geometry_msgs::PointStamped &in_point)
 {
   geometry_msgs::PointStamped in_point_converted;
   try
   {
     tf2_buffer_.transform(in_point, in_point_converted, waypoint_frame_id_, ros::Duration(1.0));
   }
-  catch (tf2::TransformException& ex)
+  catch (tf2::TransformException &ex)
   {
-    ROS_WARN("[WaypointCreator] transform failed %s\n", ex.what());  // Print exception which was caught
+    ROS_WARN("[WaypointCreator] transform failed %s\n", ex.what()); // Print exception which was caught
     return;
   }
   geometry_msgs::Pose p;
@@ -64,16 +64,16 @@ void WaypointCreator::inputPointCallback(const geometry_msgs::PointStamped& in_p
   visualizeWaypoints();
 }
 
-void WaypointCreator::deletePoseCallback(const geometry_msgs::PoseStamped& in_pose)
+void WaypointCreator::deletePoseCallback(const geometry_msgs::PoseStamped &in_pose)
 {
   geometry_msgs::PoseStamped in_pose_converted;
   try
   {
     tf2_buffer_.transform(in_pose, in_pose_converted, waypoint_frame_id_, ros::Duration(1.0));
   }
-  catch (tf2::TransformException& ex)
+  catch (tf2::TransformException &ex)
   {
-    ROS_WARN("[WaypointCreator] transform failed %s\n", ex.what());  // Print exception which was caught
+    ROS_WARN("[WaypointCreator] transform failed %s\n", ex.what()); // Print exception which was caught
     return;
   }
 
@@ -105,10 +105,10 @@ void WaypointCreator::deletePoseCallback(const geometry_msgs::PoseStamped& in_po
   visualizeWaypoints();
 }
 
-bool WaypointCreator::interpolatePosesWithConstantDistance(const std::vector<geometry_msgs::Pose>& in_poses,
-                                                           const double& interpolation_interval,
-                                                           const std::string& method,
-                                                           std::vector<geometry_msgs::Pose>& out_poses) const
+bool WaypointCreator::interpolatePosesWithConstantDistance(const std::vector<geometry_msgs::Pose> &in_poses,
+                                                           const double &interpolation_interval,
+                                                           const std::string &method,
+                                                           std::vector<geometry_msgs::Pose> &out_poses) const
 {
   if (in_poses.size() < 2)
   {
@@ -141,9 +141,9 @@ bool WaypointCreator::interpolatePosesWithConstantDistance(const std::vector<geo
   }
 }
 
-bool WaypointCreator::interpolatePoses(const std::vector<geometry_msgs::Pose>& in_poses,
-                                       const double& interpolation_interval, const std::string& method,
-                                       std::vector<geometry_msgs::Pose>& out_poses) const
+bool WaypointCreator::interpolatePoses(const std::vector<geometry_msgs::Pose> &in_poses,
+                                       const double &interpolation_interval, const std::string &method,
+                                       std::vector<geometry_msgs::Pose> &out_poses) const
 {
   if (in_poses.size() == 0)
   {
@@ -161,7 +161,7 @@ bool WaypointCreator::interpolatePoses(const std::vector<geometry_msgs::Pose>& i
 
   // convert vector<pose> to vector<double>
   std::vector<double> in_pos_x_v, in_pos_y_v, in_pos_z_v, in_yaw_v;
-  for (auto& pose : in_poses)
+  for (auto &pose : in_poses)
   {
     in_pos_x_v.push_back(pose.position.x);
     in_pos_y_v.push_back(pose.position.y);
@@ -246,7 +246,7 @@ void WaypointCreator::publishWaypoints() const
 
   lane.header.frame_id = waypoint_frame_id_;
   lane.header.stamp = ros::Time::now();
-  for (const auto& p : interpolated_pose_v_)
+  for (const auto &p : interpolated_pose_v_)
   {
     wps.pose.pose = p;
     wps.twist.twist.linear.x = waypoint_velocity_;
@@ -282,9 +282,9 @@ void WaypointCreator::visualizeWaypoints() const
   pub_visualize_.publish(marker_array);
 }
 
-visualization_msgs::Marker WaypointCreator::createPoseMarker(const geometry_msgs::Pose& pose,
-                                                             const std_msgs::ColorRGBA& color,
-                                                             const geometry_msgs::Vector3& scale, const std::string& ns,
+visualization_msgs::Marker WaypointCreator::createPoseMarker(const geometry_msgs::Pose &pose,
+                                                             const std_msgs::ColorRGBA &color,
+                                                             const geometry_msgs::Vector3 &scale, const std::string &ns,
                                                              const int32_t id) const
 {
   visualization_msgs::Marker marker;
@@ -319,4 +319,3 @@ void WaypointCreator::deleteVisualizeWaypoints()
   }
   pub_visualize_.publish(marker_array);
 }
-
