@@ -10,14 +10,14 @@ find_package(
     autoware_config_msgs
     geometry_msgs
     gnss
-    lane_planner
-    libwaypoint_follower
+    # lane_planner
+    # libwaypoint_follower
     nav_msgs
     roscpp
     std_msgs
-    tablet_socket_msgs
+    # tablet_socket_msgs
     tf
-    vector_map
+    # vector_map
 )
 
 find_package(Boost REQUIRED)
@@ -56,8 +56,8 @@ add_executable(waypoint_extractor nodes/waypoint_extractor/waypoint_extractor.cp
 target_link_libraries(waypoint_extractor ${catkin_LIBRARIES})
 add_dependencies(waypoint_extractor ${catkin_EXPORTED_TARGETS})
 
-add_executable(waypoint_clicker nodes/waypoint_clicker/waypoint_clicker.cpp)
-target_link_libraries(waypoint_clicker ${catkin_LIBRARIES})
+# add_executable(waypoint_clicker nodes/waypoint_clicker/waypoint_clicker.cpp)
+# target_link_libraries(waypoint_clicker ${catkin_LIBRARIES})
 
 add_executable(
   waypoint_marker_publisher
@@ -90,7 +90,7 @@ install(
     waypoint_loader
     waypoint_replanner
     waypoint_saver
-    waypoint_clicker
+    # waypoint_clicker
     waypoint_marker_publisher
     waypoint_velocity_visualizer
     waypoint_extractor
