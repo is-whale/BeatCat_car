@@ -33,7 +33,6 @@
 
 #include <boost/circular_buffer.hpp>
 
-#include "libwaypoint_follower/libwaypoint_follower.h"
 #include "autoware_msgs/LaneArray.h"
 #include "autoware_config_msgs/ConfigLaneStop.h"
 #include "autoware_msgs/TrafficLight.h"
@@ -376,7 +375,8 @@ void WaypointVelocityVisualizer::createVelocityTextMarker(const std::vector<nav_
     p.z += plot_height_ratio_ * wp.twist.twist.linear.x + plot_height_shift_;
     marker.pose.position = p;
     std::ostringstream oss;
-    oss << std::fixed << std::setprecision(1) << mps2kmph(wp.twist.twist.linear.x);
+    //fix :mps2kmph
+    oss << std::fixed << std::setprecision(1) << (((wp.twist.twist.linear.x)* 60 * 60) / 1000);
     marker.text = oss.str();
     markers.markers.push_back(marker);
   }

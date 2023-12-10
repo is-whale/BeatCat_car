@@ -23,15 +23,16 @@
 #include <message_filters/sync_policies/approximate_time.h>
 #include <std_msgs/Float32.h>
 #include <tf/transform_datatypes.h>
+#include <geometry_msgs/TwistStamped.h>
 
 #include <fstream>
 
-#include "libwaypoint_follower/libwaypoint_follower.h"
 
 static const int SYNC_FRAMES = 50;
 
 typedef message_filters::sync_policies::ApproximateTime<geometry_msgs::TwistStamped, geometry_msgs::PoseStamped>
     TwistPoseSync;
+
 
 class WaypointSaver
 {
@@ -108,7 +109,8 @@ void WaypointSaver::poseCallback(const geometry_msgs::PoseStampedConstPtr &pose_
 void WaypointSaver::TwistPoseCallback(const geometry_msgs::TwistStampedConstPtr &twist_msg,
                                       const geometry_msgs::PoseStampedConstPtr &pose_msg) const
 {
-  outputProcessing(pose_msg->pose, mps2kmph(twist_msg->twist.linear.x));
+  //fix mps2kmph
+  outputProcessing(pose_msg->pose,((twist_msg->twist.linear.x)* 60 * 60) / 1000);
 }
 
 void WaypointSaver::outputProcessing(geometry_msgs::Pose current_pose, double velocity) const

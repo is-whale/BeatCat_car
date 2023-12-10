@@ -88,6 +88,25 @@ void publishMarkerArray(const visualization_msgs::MarkerArray& marker_array, con
   publisher.publish(msg);
 }
 
+/**
+ * brief calcAbsoluteCoordinate
+ * @param[in] point_msg
+ * @param[in] current_pose
+ * @return tf_point_msg 
+ * @details transplant from libwaypoint_follower
+  */
+geometry_msgs::Point calcAbsoluteCoordinate(geometry_msgs::Point point_msg, geometry_msgs::Pose current_pose)
+{
+  tf::Transform inverse;
+  tf::poseMsgToTF(current_pose, inverse);
+
+  tf::Point p;
+  pointMsgToTF(point_msg, p);
+  tf::Point tf_p = inverse * p;
+  geometry_msgs::Point tf_point_msg;
+  pointTFToMsg(tf_p, tf_point_msg);
+  return tf_point_msg;
+}
 
 
 void createGlobalLaneArrayVelocityMarker(const autoware_msgs::LaneArray& lane_waypoints_array)
@@ -118,8 +137,8 @@ void createGlobalLaneArrayVelocityMarker(const autoware_msgs::LaneArray& lane_wa
       velocity_marker.pose.position = calcAbsoluteCoordinate(relative_p, lane.waypoints[i].pose.pose);
       velocity_marker.pose.position.z += 0.2;
 
-      // double to string
-      std::string vel = std::to_string(mps2kmph(lane.waypoints[i].twist.twist.linear.x));
+      // fix mps2kmph
+      std::string vel = std::to_string(((lane.waypoints[i].twist.twist.linear.x)* 60 * 60) / 1000);
       velocity_marker.text = vel.erase(vel.find_first_of(".") + 2);
 
       tmp_marker_array.markers.push_back(velocity_marker);
@@ -213,7 +232,8 @@ void createLocalWaypointVelocityMarker(std_msgs::ColorRGBA color, int closest_wa
 
     // double to string
     std::ostringstream oss;
-    oss << std::fixed << std::setprecision(1) << mps2kmph(lane_waypoint.waypoints[i].twist.twist.linear.x);
+    //fix mps2kmh
+    oss << std::fixed << std::setprecision(1) << ((lane_waypoint.waypoints[i].twist.twist.linear.x* 60 * 60) / 1000);
     velocity.text = oss.str();
 
     g_local_waypoints_marker_array.markers.push_back(velocity);
