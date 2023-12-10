@@ -6,7 +6,7 @@
           "limitSymbolsToIncludedHeaders": false
         },
         "includePath": [
-          "/opt/ros/melodic/include/**",
+          "/opt/ros/noetic/include/**",
           "/home/autoware/shared_dir/beatcat/src/BeatCat_car/best_planner/waypoint_maker/include/**",
           "/home/autoware/shared_dir/beatcat/src/BeatCat_car/lib/amathutils_lib/include/amathutils_lib/**",
           "/usr/include/**"

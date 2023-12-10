@@ -39,14 +39,14 @@ add_executable(
 target_link_libraries(waypoint_loader ${catkin_LIBRARIES})
 add_dependencies(waypoint_loader ${catkin_EXPORTED_TARGETS})
 
-add_executable(
-  waypoint_replanner
-  nodes/waypoint_replanner/waypoint_replanner.cpp
-  nodes/waypoint_replanner/waypoint_replanner_node.cpp
-)
+# add_executable(
+#   waypoint_replanner
+#   nodes/waypoint_replanner/waypoint_replanner.cpp
+#   nodes/waypoint_replanner/waypoint_replanner_node.cpp
+# )
 
-target_link_libraries(waypoint_replanner ${catkin_LIBRARIES})
-add_dependencies(waypoint_replanner ${catkin_EXPORTED_TARGETS})
+# target_link_libraries(waypoint_replanner ${catkin_LIBRARIES})
+# add_dependencies(waypoint_replanner ${catkin_EXPORTED_TARGETS})
 
 add_executable(waypoint_saver nodes/waypoint_saver/waypoint_saver.cpp)
 target_link_libraries(waypoint_saver ${catkin_LIBRARIES})
@@ -88,7 +88,7 @@ add_dependencies(waypoint_creator ${catkin_EXPORTED_TARGETS})
 install(
   TARGETS
     waypoint_loader
-    waypoint_replanner
+    # waypoint_replanner
     waypoint_saver
     # waypoint_clicker
     waypoint_marker_publisher
