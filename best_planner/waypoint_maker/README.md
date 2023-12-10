@@ -2,6 +2,34 @@
 
 ## Overview
 
+节点waypoint_loader
+​ 节点waypoint_loader的主要作用：从本地文件加载采集的轨迹点。
+
+  * waypoint_loader
+    - /based/lane_waypoints_raw (autoware_msgs/LaneArray)
+
+  replanner节点暂时弃用，需要重命名话题跳过
+  * waypoint_replanner
+    - /based/lane_waypoints_raw (autoware_msgs/LaneArray)
+    - /config/waypoint_replanner (autoware_config_msgs/ConfigWaypointReplanner)
+
+    to lane_rule
+
+4.1.1 启动方法
+终端启动:
+
+roslaunch waypoint_maker waypoint_loader.launch
+从Runtime Manager启动:
+
+​ 打开Runtime Manager，上方computing 选项卡 -> Motion Planning ->waypoint_maker->waypoint_loader，单击 [app] 按钮可更改设置等参数。
+
+4.1.2 程序路径
+//源代码路径
+src/autoware/core_planning/waypoint_maker/nodes/waypoint_loader
+4.1.3 参数详情
+参数名	类型	说明
+multi_lane_csv	string	路标点文件
+
 - This package has following nodes.
 
     - waypoint_clicker
