@@ -22,3 +22,6 @@ route planner
 waypoint planner
 path follow
 
+autoware输出
+vehicle_cmd_msg_t = autoware_msgs::VehicleCmd;
+
