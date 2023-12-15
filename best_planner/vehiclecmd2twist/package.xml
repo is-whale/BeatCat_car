@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>twist2vehiclecmd</name>
+  <name>vehiclecmd2twist_node</name>
   <version>0.0.0</version>
   <description>The twist2vehiclecmd package</description>
 
