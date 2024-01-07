@@ -2,6 +2,8 @@
 ---
 Porting Planning and Control Algorithms Based on Autoware
 
+从apollo ,autoware等开源项目中抽取自动驾驶框架的部分，实现低耦合的过程
+
 #### set up
 ```
 desc : waypoint_loader desc sample
